@@ -14,6 +14,7 @@
 		29D734AF27FB73F500C4F2C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D734AE27FB73F500C4F2C3 /* Assets.xcassets */; };
 		29D734B227FB73F500C4F2C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D734B027FB73F500C4F2C3 /* LaunchScreen.storyboard */; };
 		29D734C027FCDC2B00C4F2C3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D734BF27FCDC2B00C4F2C3 /* LoginViewModel.swift */; };
+		29D734C327FDC10900C4F2C3 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D734C227FDC10900C4F2C3 /* KeyboardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		29D734B127FB73F500C4F2C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		29D734B327FB73F500C4F2C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29D734BF27FCDC2B00C4F2C3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		29D734C227FDC10900C4F2C3 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		29D734A127FB73F400C4F2C3 /* Hero */ = {
 			isa = PBXGroup;
 			children = (
+				29D734C127FDC09D00C4F2C3 /* Extensions */,
 				29D734BA27FCDBA300C4F2C3 /* Sections */,
 				29D734B927FCDB4600C4F2C3 /* Repository */,
 				29D734BB27FCDBB500C4F2C3 /* Model */,
@@ -116,6 +119,14 @@
 			children = (
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		29D734C127FDC09D00C4F2C3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				29D734C227FDC10900C4F2C3 /* KeyboardViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29D734A727FB73F400C4F2C3 /* LoginViewController.swift in Sources */,
+				29D734C327FDC10900C4F2C3 /* KeyboardViewController.swift in Sources */,
 				29D734A327FB73F400C4F2C3 /* AppDelegate.swift in Sources */,
 				29D734A527FB73F400C4F2C3 /* SceneDelegate.swift in Sources */,
 				29D734C027FCDC2B00C4F2C3 /* LoginViewModel.swift in Sources */,

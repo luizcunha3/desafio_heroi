@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: KeyboardViewController {
 
     let viewModel = LoginViewModel()
     let primaryColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.00)
@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
         contentView.addSubview(passwordLabel)
         contentView.addSubview(passwordTextField)
         contentView.addSubview(enterButton)
+        contentView.addSubview(alertLabel)
         contentView.addSubview(registerButton)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         let titleLabelConstraints = [
@@ -64,6 +65,11 @@ class LoginViewController: UIViewController {
             enterButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: self.view.frame.height/28),
             enterButton.heightAnchor.constraint(equalToConstant: self.view.frame.height/15)
         ]
+        let alertLabelConstraints = [
+            alertLabel.topAnchor.constraint(equalTo: enterButton.bottomAnchor, constant: 4),
+            alertLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            alertLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ]
         let registerButtonConstraints = [
             registerButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             registerButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
@@ -72,10 +78,11 @@ class LoginViewController: UIViewController {
         ]
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(emailLabelConstraints)
-        NSLayoutConstraint.activate(passwordLabelConstraints)
         NSLayoutConstraint.activate(emailTextFieldConstraints)
+        NSLayoutConstraint.activate(passwordLabelConstraints)
         NSLayoutConstraint.activate(passwordTextFieldConstraints)
         NSLayoutConstraint.activate(enterButtonConstraints)
+        NSLayoutConstraint.activate(alertLabelConstraints)
         NSLayoutConstraint.activate(registerButtonConstraints)
         return contentView
     }()
@@ -104,9 +111,20 @@ class LoginViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    lazy var alertLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.isHidden = true
+        label.text = "Check your details or register"
+        label.textColor = .white
+        label.font = label.font.withSize(15)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+       return label
+    }()
     lazy var emailTextField: UITextField = {
         let textField = UITextField(frame: .zero)
-        textField.adjustsFontSizeToFitWidth = true
+        textField.layer.borderWidth = 0
+        textField.layer.borderColor = UIColor.red.cgColor
         textField.layer.cornerRadius = 5
         textField.backgroundColor = .white
         textField.font = textField.font?.withSize(22)
@@ -118,7 +136,8 @@ class LoginViewController: UIViewController {
     }()
     lazy var passwordTextField: UITextField = {
         let textField = UITextField(frame: .zero)
-        textField.adjustsFontSizeToFitWidth = true
+        textField.layer.borderWidth = 0
+        textField.layer.borderColor = UIColor.red.cgColor
         textField.layer.cornerRadius = 5
         textField.backgroundColor = .white
         textField.font = textField.font?.withSize(25)
@@ -131,7 +150,7 @@ class LoginViewController: UIViewController {
     }()
     lazy var enterButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setTitle("Login", for: .normal)
+        button.setTitle("Enter", for: .normal)
         button.titleLabel?.font = button.titleLabel?.font.withSize(20)
         button.backgroundColor = .red
         button.layer.cornerRadius = 5
@@ -152,16 +171,19 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         view.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 0.60)
         
         setupView()
         setupConstraints()
     }
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    
     func setupView() {
         view.addSubview(imageView)
         view.addSubview(contentView)
     }
+    
     func setupConstraints() {
         let imageViewConstraints = [
             imageView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -175,15 +197,37 @@ class LoginViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ]
-        
         NSLayoutConstraint.activate(imageViewConstraints)
         NSLayoutConstraint.activate(contentViewConstraints)
     }
+    
     @objc func actionEnterButton() {
-        self.viewModel.enterButtonsClick()
+        self.viewModel.enterButtonsClick(emailTextField.text, passwordTextField.text)
     }
     @objc func actionRegisterButton() {
         self.viewModel.registerButtonClick()
     }
 }
 
+extension LoginViewController: LoginViewDelegate {
+    func setTextFieldsToDefault() {
+        emailTextField.layer.borderWidth = 0
+        passwordTextField.layer.borderWidth = 0
+        alertLabel.isHidden = true
+    }
+    func setEmailToRed() {
+        emailTextField.layer.borderWidth = 3
+    }
+    func setPasswordToRed() {
+        self.passwordTextField.layer.borderWidth = 3
+    }
+    func alertDataNoFound() {
+        alertLabel.isHidden = false
+    }
+    func goToHomeView() {
+        //navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+    }
+    func goToRegisterView() {
+        //navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+    }
+}
